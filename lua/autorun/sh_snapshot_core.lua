@@ -96,7 +96,7 @@ if CLIENT then
 		StartPosition = net.ReadVector()
 		EndPosition = net.ReadVector()
 		
-		print(StartPosition,EndPosition)
+		--print(StartPosition,EndPosition)
 		
 		NextDelete = CurTime() + 30
 	end)
@@ -134,27 +134,3 @@ if CLIENT then
 	hook.Add("PostDrawTranslucentRenderables","SS_PostDrawTranslucentRenderables",SS_PostDrawTranslucentRenderables)
 
  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-print("SHITS LOADED YO")
