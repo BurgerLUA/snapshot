@@ -96,8 +96,6 @@ if CLIENT then
 		StartPosition = net.ReadVector()
 		EndPosition = net.ReadVector()
 		
-		--print(StartPosition,EndPosition)
-		
 		NextDelete = CurTime() + 30
 	end)
 	
@@ -106,15 +104,12 @@ if CLIENT then
 		if StartPosition and EndPosition and CurTime() <= NextDelete then
 			
 			local AlphaMod = math.Clamp( math.abs(CurTime() - NextDelete)*255,0,255)
-			
-			
-			--print(StartPosition,EndPosition)
+
 			
 			local BeamSize = 16
 			local BeamColor = Color(255,0,0,AlphaMod)
 			
-			--surface.SetDrawColor(255,255,255,255)
-			--surface.DrawLine( 0, 0, 100, 10 )
+
 			
 			
 			render.SetMaterial( DotMat )
