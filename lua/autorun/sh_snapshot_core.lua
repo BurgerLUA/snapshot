@@ -22,7 +22,6 @@ if SERVER then
 	hook.Add("PlayerDeath","SS_PlayerDeath",SS_PlayerDeath)
 		
 	function SS_PlayerDeathThink(ply)
-
 		if ply.SnapShot_DeathTime and ply.SnapShot_Killer then
 		
 			local TotalDeathTime = CurTime() - ply.SnapShot_DeathTime
@@ -40,7 +39,6 @@ if SERVER then
 			end
 			
 		end
-
 	end
 
 hook.Add("PlayerDeathThink","SS_PlayerDeathThink",SS_PlayerDeathThink)
