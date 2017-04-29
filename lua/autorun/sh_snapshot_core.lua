@@ -94,7 +94,7 @@ if CLIENT then
 		StartPosition = net.ReadVector()
 		EndPosition = net.ReadVector()
 		
-		NextDelete = CurTime() + 30
+		NextDelete = CurTime() + 10
 	end)
 	
 	function SS_PostDrawTranslucentRenderables()
