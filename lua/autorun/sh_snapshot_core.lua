@@ -25,13 +25,18 @@ if SERVER then
 		if ply.SnapShot_DeathTime and ply.SnapShot_Killer then
 		
 			local TotalDeathTime = CurTime() - ply.SnapShot_DeathTime
+			
+			local ShouldSpectate = SS_ShouldPlayerSpectateEntity(ply,ply.SnapShot_Killer)
+			local SpectateTime = 5
 
-			if TotalDeathTime > 1 and TotalDeathTime < 5 and ply:GetObserverMode() ~= OBS_MODE_FREEZECAM then
-				ply:SpectateEntity( ply.SnapShot_Killer )
-				ply:Spectate(OBS_MODE_FREEZECAM)
-				ply:EmitSound("ui/freeze_cam.wav")
-			elseif TotalDeathTime >= 5 and ply:GetObserverMode() == OBS_MODE_FREEZECAM then
-				ply:Spectate(OBS_MODE_CHASE)
+			if ShouldSpectate then
+				if TotalDeathTime > 1 and TotalDeathTime < SpectateTime and ply:GetObserverMode() ~= OBS_MODE_FREEZECAM then
+					ply:SendLua([[LocalPlayer():EmitSound("ui/freeze_cam.wav")]])
+					ply:SpectateEntity( ply.SnapShot_Killer )
+					ply:Spectate(OBS_MODE_FREEZECAM)
+				elseif TotalDeathTime >= SpectateTime and ply:GetObserverMode() == OBS_MODE_FREEZECAM then
+					ply:Spectate(OBS_MODE_CHASE)
+				end
 			end
 
 			if TotalDeathTime < 5 then
@@ -41,7 +46,11 @@ if SERVER then
 		end
 	end
 
-hook.Add("PlayerDeathThink","SS_PlayerDeathThink",SS_PlayerDeathThink)
+	hook.Add("PlayerDeathThink","SS_PlayerDeathThink",SS_PlayerDeathThink)
+	
+	function SS_ShouldPlayerSpectateEntity(ply,entity)
+		return (ply ~= entity) and not entity:IsWorld()
+	end
 	
 	
 	function SS_ScalePlayerDamage(ply,hitgroup,dmginfo)
